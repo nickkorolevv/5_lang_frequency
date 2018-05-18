@@ -23,7 +23,7 @@ def get_most_frequent_words(text):
 def print_top_word(sentence, freq_dict, count):
     print(sentence)
     counter = 1
-    for item in freq_dict.most_common(count):
+    for dict_item in freq_dict.most_common(count):
         print(str(counter)+')', i[0], "встречается", i[1], "раз(а)")
         counter += 1
 
@@ -36,4 +36,5 @@ if __name__ == "__main__":
 
     text = load_data(filepath)
     freq_dict = get_most_frequent_words(text)
-    print_top_word("Самые популярные слова: ", freq_dict, 10)
+    count = 10
+    print_top_word("Самые популярные слова: ", freq_dict, count)
