@@ -9,32 +9,24 @@ def load_data(filepath):
         return text
 
 
-def get_most_frequent_words(text):
-    match_obj = re.compile("([a-zA-Zа-яА-ЯёЁ']+)")
-    text_data = match_obj.findall(text)
-    word_list = []
-    for word in text_data:
-        word_list.append(word.lower())
-
-    freq_dict = collections.Counter(word_list)
-    return freq_dict
+def get_most_frequent_words(text, COUNT):
+    text_list = re.findall("([a-zA-Zа-яА-ЯёЁ']+)", text.lower())
+    word_frequency = collections.Counter(text_list).most_common(COUNT)
+    return word_frequency
 
 
-def print_top_word(sentence, freq_dict, count):
+def print_top_word(sentence, word_frequency, COUNT):
     print(sentence)
-    counter = 1
-    for dict_item in freq_dict.most_common(count):
-        print(str(counter)+')', i[0], "встречается", i[1], "раз(а)")
-        counter += 1
+    for count, word in enumerate(word_frequency):
+        print((count+1), "- {} встречается {} раз(а)".format(word[0], word[1]))
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        filepath = format(sys.argv[1])
+        filepath = sys.argv[1]
     else:
         exit("Файл не выбран, пожалуйста, выберите файл")
-
     text = load_data(filepath)
-    freq_dict = get_most_frequent_words(text)
-    count = 10
-    print_top_word("Самые популярные слова: ", freq_dict, count)
+    COUNT = 10
+    word_frequency = get_most_frequent_words(text, COUNT)
+    print_top_word("Самые популярные слова: ", word_frequency, COUNT)
