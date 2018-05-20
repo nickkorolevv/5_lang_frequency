@@ -6,11 +6,8 @@ import os
 
 def load_data(filepath):
     with open(filepath, "r", encoding="windows-1251") as file_handler:
-        try:
-            text = file_handler.read()
-            return text
-        except ValueError:
-            return None
+        text = file_handler.read()
+        return text
 
 
 def get_most_frequent_words(text, max_count):
@@ -30,13 +27,9 @@ if __name__ == "__main__":
         filepath = sys.argv[1]
     else:
         exit("Файл не выбран, пожалуйста, выберите файл")
-    if os.path.exists(filepath):
-        text = load_data(filepath)
-        if text is not None:
-            max_count = 10
-            words = get_most_frequent_words(text, max_count)
-            print_top_word("Самые популярные слова: ", words)
-        else:
-            exit("Файл не поддерживается")
-    else:
+    if not(os.path.exists(filepath)):
         exit("Файла нет в директории")
+    text = load_data(filepath)
+    max_count = 10
+    words = get_most_frequent_words(text, max_count)
+    print_top_word("Самые популярные слова: ", words)
